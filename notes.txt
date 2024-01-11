@@ -43,3 +43,9 @@ an element to locate them. .click() can locate before clicking or you can add
 
 The above is good for a single element. For grabbing multiple web elements with
 the same selector, we can use page.$$(locator).
+
+When locating multiple elements, they may not have all loaded and you can end up
+with flaky results. You can specifically wait for things to load using something
+like below.
+
+  page.waitForSelector("//div[@id='tbodyid']//div//h4/a");
