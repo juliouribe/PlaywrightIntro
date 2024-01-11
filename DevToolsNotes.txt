@@ -1,0 +1,5 @@
+In the inspect panel, you can hit "command + f" to pull up a search. Then type
+"//a" to search for all anchor tags.
+
+In the right/bottom panel, use the SelectorsHub for getting help with selectors
+using xpath, css, or properties.

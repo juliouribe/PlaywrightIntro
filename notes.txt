@@ -40,3 +40,6 @@ an element to locate them. .click() can locate before clicking or you can add
 
   await page.locator('locator');
   await page.click('locator');
+
+The above is good for a single element. For grabbing multiple web elements with
+the same selector, we can use page.$$(locator).
