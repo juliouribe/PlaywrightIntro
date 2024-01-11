@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('LocateMultipleElements', async ({ page }) => {
   await page.goto('https://www.demoblaze.com/index.html');
+  await page.waitForSelector("#tbodyid");
 
   // const links = await page.$$('a');
 
@@ -18,11 +19,7 @@ test('LocateMultipleElements', async ({ page }) => {
       };
     });
   });
-  for (const product of products) {
-    console.log(product);
-  }
   console.log(products);
   // const products = await page.locator("//div[@id='tbodyid']//h4/a").all();
   // await products();
-
 });
