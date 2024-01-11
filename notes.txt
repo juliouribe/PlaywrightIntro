@@ -1,0 +1,42 @@
+Starting a new app with latest or a specific version
+npm init playwright@latest
+
+package.json -- node project management file
+playwright.config.js -- playwright configuration file
+tests -- target location for playwright tests
+
+Check playwright version
+npm playwright -v
+
+Run tests. The test directory is also defined in the playwright config file
+npx playwright test
+npx playwright test --headed      // still not sure what headed means
+npx playwright test HomePageTest.spec.js    // run a single test
+npx playwright test --project=chromium    // single browser
+npx playwright test --debug     // use step by step debugging execution
+
+Open html report of tests
+npx playwright show-report
+
+For each test, they need the .spec.js extension. At the top of the file always
+import { test, expect }  from '@playwright/test';
+
+When writing the test, page.goto is async so we need to await. Then we can use
+the page object for different assertions. Promises are commonly returned. You
+need to away expects, page.goto, and other methods.
+
+  await expect(page).toHaveTitle('STORE');
+  await expect(page).toHaveURL('https://www.demoblaze.com/index.html');
+  const pageTitle = await page.title();
+
+
+So far the attributes we've seen for page are
+  const pageTitle = await page.title();
+  const pageURL = page.url();
+
+Locating elements is very important. We can use the property, css, or xpath of
+an element to locate them. .click() can locate before clicking or you can add
+.click() after a .locator() call.
+
+  await page.locator('locator');
+  await page.click('locator');
