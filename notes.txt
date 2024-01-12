@@ -1,25 +1,29 @@
 Starting a new app with latest or a specific version
-npm init playwright@latest
+  npm init playwright@latest
 
-package.json -- node project management file
-playwright.config.js -- playwright configuration file
-tests -- target location for playwright tests
+  package.json -- node project management file
+  playwright.config.js -- playwright configuration file
+  tests -- target location for playwright tests
 
 Check playwright version
-npm playwright -v
+  npm playwright -v
 
 Run tests. The test directory is also defined in the playwright config file
-npx playwright test
-npx playwright test --headed      // still not sure what headed means
-npx playwright test HomePageTest.spec.js    // run a single test
-npx playwright test --project=chromium    // single browser
-npx playwright test --debug     // use step by step debugging execution
+  npx playwright test
+  npx playwright test --headed      // still not sure what headed means
+  npx playwright test HomePageTest.spec.js    // run a single test
+  npx playwright test --project=chromium    // single browser
+  npx playwright test --debug     // use step by step debugging execution
+  npx playwright test tests/todo-page/ tests/landing-page/  // run directories of tests
+
+More recent playwright, run with UI mode on.
+  npx playwright test --ui
 
 Open html report of tests
 npx playwright show-report
 
 For each test, they need the .spec.js extension. At the top of the file always
-import { test, expect }  from '@playwright/test';
+  import { test, expect }  from '@playwright/test';
 
 When writing the test, page.goto is async so we need to await. Then we can use
 the page object for different assertions. Promises are commonly returned. You
@@ -48,4 +52,28 @@ When locating multiple elements, they may not have all loaded and you can end up
 with flaky results. You can specifically wait for things to load using something
 like below.
 
-  page.waitForSelector("//div[@id='tbodyid']//div//h4/a");
+Use page.waitForSelector to load an element.
+  await page.waitForSelector("#tbodyid");
+
+
+Basic Actions
+  locator.check()	Check the input checkbox
+  locator.click()	Click the element
+  locator.uncheck()	Uncheck the input checkbox
+  locator.hover()	Hover mouse over the element
+  locator.fill()	Fill the form field, input text
+  locator.focus()	Focus the element
+  locator.press()	Press single key
+  locator.setInputFiles()	Pick files to upload
+  locator.selectOption()	Select option in the drop down
+
+
+
+
+
+Questions for Laura
+- Which version of playwright do you use? Perhaps share trying to select multiple
+elements where you may need to wait for loading. Table rows, nested elements, etc.
+- Do you use codegen?
+- What's the relationship like with clients? Do client web pages tend to have consistent
+structure within companies or are tests kind of difficult and page specific?
