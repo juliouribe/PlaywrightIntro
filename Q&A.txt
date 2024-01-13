@@ -1,0 +1,135 @@
+1) Why Playwright?
+1. Playwright is very fast compared to other options.
+2. Test runner and built in report
+3. Supports cross-browser
+
+
+2) How do you run failed test cases?
+npx playwright test --retries=3
+
+3) How do you handle two windows or tabs?
+const [popUp] = await Promise.all([
+  page.waitForEvent("popup"),
+  page.locator("login").click(),
+]);
+
+4) How to generate report?
+inside of the playwright.config.js file,
+reporter: [
+  ["dot"], // console
+  ["json", { outputFile: "test-result.json" }], // Write to JSON file?
+  ["html", { open: "always" }] // html file report.
+]
+
+5) What is the difference between npm and npx?
+npm is the package manager which is used to manage package installation.
+npx is a package executer. Used for running package commands.
+
+6) What is a playwright fixture?
+A fixture is like hooks for use by the test runner. The tests inside a .spec.js file are examples.
+
+7) How to open a browser?
+const browser = await chromium.launch();
+const context = await browser.newContext();
+const page = await context.newPage();
+await page.goto("https://www.leetcode.in/");
+
+8) Cross browser testing?
+In our config we can find browsers in the projects section of the config. We can
+also use other devices or specify browser when running test command.
+
+9) How to execute in a local browser?
+use: {
+  channel: "chrome",
+}
+
+10) How to run only a specific tests from a test suite
+npx playwright test -g "test name"
+
+11) How to generate authentication cookies
+npx playwright codegen --save-storage=auth.json
+
+12) How to skip a test based on a browser?
+test("skip test", async ({ page, browserName }) => {
+  if (browserName === "firefox") {
+    test.skip();
+  }
+})
+
+13) How to find XPath or css?
+page.locator("xpath || css");
+
+14) What is Aria option?
+
+15) How to handle alert?
+page.on("dialog", async (alert) => {
+  console.log("Alert message: " + alert.message());
+  await alert.accept();   // Pass data into .accept() function as a string.
+});
+await page.click("#accept");
+
+16) How to open a new tab?
+const newPage = await page.context().newPage();
+
+17) Playwright architecture
+
+18) How to run test in parallel?
+Already in parallel. You can customize the number of workers.
+  npx playwright test --workers=3
+  or
+  workers: process.env.CI ? 1 : 2,
+
+19) How to maximize browser
+test.use({
+  viewport: null
+})
+
+20) Name a few exceptions faced in Playwright
+Timeout exceptions are common.
+
+21) How to do hard and soft assertions?
+await expect(page).toHaveURL("google.com")
+await expect.soft(page).toHaveURL("google.com")
+
+22) How to open the html report
+npx playwright show-report // if already submitted test
+Update config to always open html report.
+
+23) Difference between innerHTML, textContent, and innerText
+innerHTML - text w/o applying styling. Can include strong and other element tags.
+textContent - Simply the text w/o the element tags. Stops before another element.
+innerText - All of the text from this element w/o the element tags.
+
+24) Fill vs type
+Fill will clear the existing value and passes the string in one go.
+Type will pass the data one character at a time.
+
+25) How to attach a screenshot to a reporter?
+const screenshot = await page.screenshot();
+await testInfo.attach('screenshot',
+  { body: screenshot, contentType: 'image/png'}
+);
+
+26) How to save a screenshot to a path?
+await page.screenshot({ path: 'screenshot.png' });
+
+27) Difference between new page and new context?
+New page will carry forward all the cookies and session already open in browser.
+New context will wipe cookies and session.
+
+28) How to find multiple locators?
+const images = page.locator("img");
+const allImages = await images.all();
+for await (const img of allImages) {
+  // do something here
+}
+
+29) How to use explicit waits?
+waitForEvent
+waitForFunction
+waitForSelector
+...
+
+30) How to verify element CSS color?
+const btn = page.locator("button");
+await expect(btn).toHaveCSS("background-color", "#8a4d76");

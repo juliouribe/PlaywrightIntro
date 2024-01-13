@@ -1,0 +1,18 @@
+new workflow
+helpers for login
+spreadsheet message after finish one
+
+
+invalid credentials
+use random email password to make sure it doesn't login
+url for site testing is in helper
+
+
+green new file button is availablbel on login
+- spreadsheet
+- back button to go back > options > delete
+
+
+sort files descending (requires login)
+Click on file name or dates and desc/asc
+
